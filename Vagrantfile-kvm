@@ -1,5 +1,5 @@
-# Created by Topology-Converter v4.6.3
-#    Template Revision: v4.6.3
+# Created by Topology-Converter v4.6.4
+#    Template Revision: v4.6.4
 #    https://github.com/cumulusnetworks/topology_converter
 #    using topology data from: ./topology.dot
 #    built with the following args: ./topology_converter.py ./topology.dot -p libvirt
@@ -16,7 +16,7 @@
 #Set the default provider to libvirt in the case they forget --provider=libvirt or if someone destroys a machine it reverts to virtualbox
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 
-Vagrant.require_version ">= 1.8.6", "< 1.9.6"
+Vagrant.require_version ">= 1.8.6", "< 1.9.8"
 
 # Check required plugins
 REQUIRED_PLUGINS_LIBVIRT = %w(vagrant-libvirt)
@@ -162,7 +162,7 @@ end
   config.vm.define "oob-mgmt-switch" do |device|
     device.vm.hostname = "oob-mgmt-switch" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512
@@ -421,7 +421,7 @@ end
   config.vm.define "exit02" do |device|
     device.vm.hostname = "exit02" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512
@@ -624,7 +624,7 @@ end
   config.vm.define "exit01" do |device|
     device.vm.hostname = "exit01" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512
@@ -827,7 +827,7 @@ end
   config.vm.define "spine02" do |device|
     device.vm.hostname = "spine02" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512
@@ -1002,7 +1002,7 @@ end
   config.vm.define "spine01" do |device|
     device.vm.hostname = "spine01" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512
@@ -1177,7 +1177,7 @@ end
   config.vm.define "leaf04" do |device|
     device.vm.hostname = "leaf04" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512
@@ -1380,7 +1380,7 @@ end
   config.vm.define "leaf02" do |device|
     device.vm.hostname = "leaf02" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512
@@ -1583,7 +1583,7 @@ end
   config.vm.define "leaf03" do |device|
     device.vm.hostname = "leaf03" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512
@@ -1786,7 +1786,7 @@ end
   config.vm.define "leaf01" do |device|
     device.vm.hostname = "leaf01" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512
@@ -2459,7 +2459,7 @@ end
   config.vm.define "internet" do |device|
     device.vm.hostname = "internet" 
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.3.2"
+    device.vm.box_version = "3.4.0"
 
     device.vm.provider :libvirt do |v|
       v.memory = 512

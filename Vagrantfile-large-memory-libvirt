@@ -1,5 +1,5 @@
-# Created by Topology-Converter v4.6.3
-#    Template Revision: v4.6.3
+# Created by Topology-Converter v4.6.4
+#    Template Revision: v4.6.4
 #    https://github.com/cumulusnetworks/topology_converter
 #    using topology data from: ./topology_large_memory.dot
 #    built with the following args: ./topology_converter.py ./topology_large_memory.dot -p libvirt
@@ -16,7 +16,7 @@
 #Set the default provider to libvirt in the case they forget --provider=libvirt or if someone destroys a machine it reverts to virtualbox
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 
-Vagrant.require_version ">= 1.8.6", "< 1.9.6"
+Vagrant.require_version ">= 1.8.6", "< 1.9.8"
 
 # Check required plugins
 REQUIRED_PLUGINS_LIBVIRT = %w(vagrant-libvirt)
