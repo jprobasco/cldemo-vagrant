@@ -68,7 +68,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  simid = 1504025254
+  simid = 1504647426
 
   config.vm.provider "virtualbox" do |v|
     v.gui=false
@@ -146,7 +146,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_oob-mgmt-switch"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -318,7 +318,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_exit02"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -458,7 +458,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_exit01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -598,7 +598,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_spine02"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -722,7 +722,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_spine01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -846,7 +846,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf04"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -986,7 +986,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf02"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -1126,7 +1126,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf03"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -1266,7 +1266,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -1405,7 +1405,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_edge01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
@@ -1796,7 +1796,7 @@ end
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_internet"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
-      v.memory = 512
+      v.memory = 768
     end
     #   see note here: https://github.com/pradels/vagrant-libvirt#synced-folders
     device.vm.synced_folder ".", "/vagrant", disabled: true
