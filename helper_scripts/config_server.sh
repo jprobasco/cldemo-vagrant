@@ -5,6 +5,8 @@ echo "  Running config_server.sh"
 echo "#################################"
 sudo su
 
+# Make DHCP Try Over and Over Again
+echo "retry 1;" >> /etc/dhcp/dhclient.conf
 
 #Replace existing network interfaces file
 echo -e "auto lo" > /etc/network/interfaces
