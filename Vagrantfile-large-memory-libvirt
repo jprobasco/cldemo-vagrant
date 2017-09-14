@@ -1,5 +1,5 @@
-# Created by Topology-Converter v4.6.4
-#    Template Revision: v4.6.4
+# Created by Topology-Converter v4.6.5
+#    Template Revision: v4.6.5
 #    https://github.com/cumulusnetworks/topology_converter
 #    using topology data from: ./topology_large_memory.dot
 #    built with the following args: ./topology_converter.py ./topology_large_memory.dot -p libvirt
@@ -16,7 +16,7 @@
 #Set the default provider to libvirt in the case they forget --provider=libvirt or if someone destroys a machine it reverts to virtualbox
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 
-Vagrant.require_version ">= 1.8.6", "< 1.9.8"
+Vagrant.require_version ">= 1.8.6"
 
 # Check required plugins
 REQUIRED_PLUGINS_LIBVIRT = %w(vagrant-libvirt)
@@ -97,7 +97,9 @@ Vagrant.configure("2") do |config|
 
   ##### DEFINE VM for oob-mgmt-server #####
   config.vm.define "oob-mgmt-server" do |device|
+    
     device.vm.hostname = "oob-mgmt-server" 
+    
     device.vm.box = "CumulusCommunity/vx_oob_server"
     device.vm.box_version = "1.0.3"
 
@@ -160,7 +162,9 @@ end
 
   ##### DEFINE VM for oob-mgmt-switch #####
   config.vm.define "oob-mgmt-switch" do |device|
+    
     device.vm.hostname = "oob-mgmt-switch" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
@@ -419,7 +423,9 @@ end
 
   ##### DEFINE VM for exit02 #####
   config.vm.define "exit02" do |device|
+    
     device.vm.hostname = "exit02" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
@@ -622,7 +628,9 @@ end
 
   ##### DEFINE VM for exit01 #####
   config.vm.define "exit01" do |device|
+    
     device.vm.hostname = "exit01" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
@@ -825,7 +833,9 @@ end
 
   ##### DEFINE VM for spine02 #####
   config.vm.define "spine02" do |device|
+    
     device.vm.hostname = "spine02" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
@@ -1000,7 +1010,9 @@ end
 
   ##### DEFINE VM for spine01 #####
   config.vm.define "spine01" do |device|
+    
     device.vm.hostname = "spine01" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
@@ -1175,7 +1187,9 @@ end
 
   ##### DEFINE VM for leaf04 #####
   config.vm.define "leaf04" do |device|
+    
     device.vm.hostname = "leaf04" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
@@ -1378,7 +1392,9 @@ end
 
   ##### DEFINE VM for leaf02 #####
   config.vm.define "leaf02" do |device|
+    
     device.vm.hostname = "leaf02" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
@@ -1581,7 +1597,9 @@ end
 
   ##### DEFINE VM for leaf03 #####
   config.vm.define "leaf03" do |device|
+    
     device.vm.hostname = "leaf03" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
@@ -1784,7 +1802,9 @@ end
 
   ##### DEFINE VM for leaf01 #####
   config.vm.define "leaf01" do |device|
+    
     device.vm.hostname = "leaf01" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
@@ -1987,7 +2007,9 @@ end
 
   ##### DEFINE VM for edge01 #####
   config.vm.define "edge01" do |device|
+    
     device.vm.hostname = "edge01" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
 
     device.vm.provider :libvirt do |v|
@@ -2081,7 +2103,9 @@ end
 
   ##### DEFINE VM for server01 #####
   config.vm.define "server01" do |device|
+    
     device.vm.hostname = "server01" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
 
     device.vm.provider :libvirt do |v|
@@ -2175,7 +2199,9 @@ end
 
   ##### DEFINE VM for server03 #####
   config.vm.define "server03" do |device|
+    
     device.vm.hostname = "server03" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
 
     device.vm.provider :libvirt do |v|
@@ -2269,7 +2295,9 @@ end
 
   ##### DEFINE VM for server02 #####
   config.vm.define "server02" do |device|
+    
     device.vm.hostname = "server02" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
 
     device.vm.provider :libvirt do |v|
@@ -2363,7 +2391,9 @@ end
 
   ##### DEFINE VM for server04 #####
   config.vm.define "server04" do |device|
+    
     device.vm.hostname = "server04" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
 
     device.vm.provider :libvirt do |v|
@@ -2457,7 +2487,9 @@ end
 
   ##### DEFINE VM for internet #####
   config.vm.define "internet" do |device|
+    
     device.vm.hostname = "internet" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.1"
 
