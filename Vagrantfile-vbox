@@ -1,4 +1,4 @@
-# Created by Topology-Converter v4.6.5
+# Created by Topology-Converter v4.6.2_dev
 #    Template Revision: v4.6.5
 #    https://github.com/cumulusnetworks/topology_converter
 #    using topology data from: ./topology.dot
@@ -68,7 +68,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  simid = 1507143780
+  simid = 1510088536
 
   config.vm.provider "virtualbox" do |v|
     v.gui=false
@@ -146,7 +146,7 @@ end
     device.vm.hostname = "oob-mgmt-switch" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_oob-mgmt-switch"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -158,6 +158,9 @@ end
 
 
     # NETWORK INTERFACES
+      # link for eth0 --> NOTHING:NOTHING
+      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net61", auto_config: false , :mac => "443839000060"
+      
       # link for swp1 --> oob-mgmt-server:eth1
       device.vm.network "private_network", virtualbox__intnet: "#{simid}_net54", auto_config: false , :mac => "a00000000061"
       
@@ -220,6 +223,7 @@ end
       vbox.customize ['modifyvm', :id, '--nicpromisc14', 'allow-all']
       vbox.customize ['modifyvm', :id, '--nicpromisc15', 'allow-all']
       vbox.customize ['modifyvm', :id, '--nicpromisc16', 'allow-all']
+      vbox.customize ['modifyvm', :id, '--nicpromisc17', 'allow-all']
       vbox.customize ["modifyvm", :id, "--nictype1", "virtio"]
     end
 
@@ -241,6 +245,10 @@ rm -rfv /etc/udev/rules.d/70-persistent-net.rules &> /dev/null
 delete_udev_directory
 
 device.vm.provision :shell , :inline => <<-udev_rule
+echo "  INFO: Adding UDEV Rule: 44:38:39:00:00:60 --> eth0"
+echo 'ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="44:38:39:00:00:60", NAME="eth0", SUBSYSTEMS=="pci"' >> /etc/udev/rules.d/70-persistent-net.rules
+udev_rule
+     device.vm.provision :shell , :inline => <<-udev_rule
 echo "  INFO: Adding UDEV Rule: a0:00:00:00:00:61 --> swp1"
 echo 'ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="a0:00:00:00:00:61", NAME="swp1", SUBSYSTEMS=="pci"' >> /etc/udev/rules.d/70-persistent-net.rules
 udev_rule
@@ -320,7 +328,7 @@ end
     device.vm.hostname = "exit02" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_exit02"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -462,7 +470,7 @@ end
     device.vm.hostname = "exit01" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_exit01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -604,7 +612,7 @@ end
     device.vm.hostname = "spine02" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_spine02"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -730,7 +738,7 @@ end
     device.vm.hostname = "spine01" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_spine01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -856,7 +864,7 @@ end
     device.vm.hostname = "leaf04" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf04"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -998,7 +1006,7 @@ end
     device.vm.hostname = "leaf02" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf02"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -1140,7 +1148,7 @@ end
     device.vm.hostname = "leaf03" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf03"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -1282,7 +1290,7 @@ end
     device.vm.hostname = "leaf01" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -1824,7 +1832,7 @@ end
     device.vm.hostname = "internet" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.4.2"
+    device.vm.box_version = "3.4.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_internet"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
