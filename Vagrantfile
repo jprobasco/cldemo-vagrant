@@ -1,4 +1,4 @@
-# Created by Topology-Converter v4.6.2_dev
+# Created by Topology-Converter v4.6.5
 #    Template Revision: v4.6.5
 #    https://github.com/cumulusnetworks/topology_converter
 #    using topology data from: ./topology.dot
@@ -68,7 +68,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  simid = 1510088536
+  simid = 1510167303
 
   config.vm.provider "virtualbox" do |v|
     v.gui=false
@@ -84,7 +84,7 @@ Vagrant.configure("2") do |config|
     device.vm.hostname = "oob-mgmt-server" 
     
     device.vm.box = "CumulusCommunity/vx_oob_server"
-    device.vm.box_version = "1.0.3"
+    device.vm.box_version = "1.0.4"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_oob-mgmt-server"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -158,9 +158,6 @@ end
 
 
     # NETWORK INTERFACES
-      # link for eth0 --> NOTHING:NOTHING
-      device.vm.network "private_network", virtualbox__intnet: "#{simid}_net61", auto_config: false , :mac => "443839000060"
-      
       # link for swp1 --> oob-mgmt-server:eth1
       device.vm.network "private_network", virtualbox__intnet: "#{simid}_net54", auto_config: false , :mac => "a00000000061"
       
@@ -223,7 +220,6 @@ end
       vbox.customize ['modifyvm', :id, '--nicpromisc14', 'allow-all']
       vbox.customize ['modifyvm', :id, '--nicpromisc15', 'allow-all']
       vbox.customize ['modifyvm', :id, '--nicpromisc16', 'allow-all']
-      vbox.customize ['modifyvm', :id, '--nicpromisc17', 'allow-all']
       vbox.customize ["modifyvm", :id, "--nictype1", "virtio"]
     end
 
@@ -245,10 +241,6 @@ rm -rfv /etc/udev/rules.d/70-persistent-net.rules &> /dev/null
 delete_udev_directory
 
 device.vm.provision :shell , :inline => <<-udev_rule
-echo "  INFO: Adding UDEV Rule: 44:38:39:00:00:60 --> eth0"
-echo 'ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="44:38:39:00:00:60", NAME="eth0", SUBSYSTEMS=="pci"' >> /etc/udev/rules.d/70-persistent-net.rules
-udev_rule
-     device.vm.provision :shell , :inline => <<-udev_rule
 echo "  INFO: Adding UDEV Rule: a0:00:00:00:00:61 --> swp1"
 echo 'ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="a0:00:00:00:00:61", NAME="swp1", SUBSYSTEMS=="pci"' >> /etc/udev/rules.d/70-persistent-net.rules
 udev_rule
