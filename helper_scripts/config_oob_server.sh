@@ -213,7 +213,7 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 EOT
 
-echo " ###Creating SSH keys for cumulus user ###"
+echo " ### Creating SSH keys for cumulus user ###"
 mkdir -p /home/cumulus/.ssh
 #/usr/bin/ssh-keygen -b 2048 -t rsa -f /home/cumulus/.ssh/id_rsa -q -N ""
 cat <<EOT > /home/cumulus/.ssh/id_rsa

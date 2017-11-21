@@ -25,6 +25,7 @@ instructions below to get started.
   * [How are IP addresses Allocated?](#how-are-ip-addresses-allocated)
   * [Tips on Managing the VMs in the Topology](#tips-on-managing-the-vms-in-the-topology)
   * [Can I Preserve my Configuration?](#can-i-preserve-my-configuration)
+  * [Running More Than One Simulation at Once](#running-more-than-one-simulation-at-once)
   * [How Can I Customize the Topology?](#how-can-i-customize-the-topology)
 * [Quick Start](#quick-start)
 
@@ -191,6 +192,30 @@ or
     net show configuration command
 
 **This command will not show configuration for third-party applications.**
+
+### Running More Than One Simulation At Once
+Using this demo environment, it is possible to run multiple simulations at once. The procedure varies
+slightly from hypervisor to hypervisor.
+
+#### Virtualbox
+In the Vagrantfile built for Virtualbox there is a line which sets `simid= [some integer]` in order to
+create unique simulations a text editor can be used to modify the simid value to something unique which 
+does not match other running simulations on the simulation node.
+
+#### Libvirt
+In the Vagrantfile built for Libvirt (Vagrantfile-kvm) virtual networks are built from link to link
+using UDP tunnels. In order to make sure that the VMs do not collide with each other. By default the
+demo uses ports 8000-10000 but these values can be swapped either by:
+
+**A).** Running the [Customize the Topology](#how-can-i-customize-the-topology)
+workflow below and providing a '-s' argument
+**OR**
+**B).** By modifying the Vagrantfile-kvm directly, swapping the prepending 1000's place for the port numbers to something different
+that do not overlap with any running applications or ports. In the example below we're swapping the ports used by the simulation
+from 8000-10000 --> 30000-32000.
+`_port => '8`  --> `_port => '30`
+`_port => '9`  --> `_port => '31`
+
 
 ### How Can I Customize the Topology?
 This Vagrant topology is built using [Topology Converter](https://github.com/cumulusnetworks/topology_converter).
