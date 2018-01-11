@@ -252,7 +252,7 @@ conflict with Virtualbox's ability to create 64-bit VMs.**
     ssh leaf01
 
 ---
-![Cumulus Networks](./documentation/cnlogo.png)
+
 >©2017 Cumulus Networks. CUMULUS, the Cumulus Logo, CUMULUS NETWORKS, and the Rocket Turtle Logo 
 (the “Marks”) are trademarks and service marks of Cumulus Networks, Inc. in the U.S. and other 
 countries. You are not permitted to use the Marks without the prior written consent of Cumulus 
