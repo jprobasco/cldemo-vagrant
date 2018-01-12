@@ -62,6 +62,7 @@ device configuration on top.
 * **[Cldemo-dynamic-ansible-inventory](https://github.com/CumulusNetworks/cldemo-dynamic-ansible-inventory)** -- A demonstration of using Ansible with external data sources, specifically Redis or MySQL databases.
 * **[Cldemo-docker-macvlan](https://github.com/CumulusNetworks/cldemo-docker-macvlan)** -- A demonstration of advertising docker containers using the macvlan networking option.
 * **[NetQDemo-1.0](https://github.com/CumulusNetworks/netqdemo-1.0)** -- Demos using NetQ. **NOTE: The NetQ VM is available for Cumulus Customers**
+* **[cldemo-evpn-symmetric](https://github.com/CumulusNetworks/cldemo-evpn-symmetric)** -- Provides a setup to show a VXLAN Routing with EVPN environment using the symmetric IRB model. 
 
 
 ## Frequently Asked Questions
