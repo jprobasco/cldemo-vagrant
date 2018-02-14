@@ -2,8 +2,8 @@
 ![Reference Topology](./documentation/cldemo_topology.png "Reference Topology")
 
 
-Welcome to the Cumulus Linux Demo Framework, which provides virtual demos of features and 
-configurations with Cumulus Linux. Follow the [Prerequisites and Getting Started](#prerequisites-and-getting-started) 
+Welcome to the Cumulus Linux Demo Framework, which provides virtual demos of features and
+configurations with Cumulus Linux. Follow the [Prerequisites and Getting Started](#prerequisites-and-getting-started)
 instructions below to get started.
 
 ## Table of Conents
@@ -38,10 +38,10 @@ instructions below to get started.
 
 ## Available Demos
 
-Once you've followed the above prerequisite/getting-started instructions for your system, 
-you are able to run any of the demos below. 
+Once you've followed the above prerequisite/getting-started instructions for your system,
+you are able to run any of the demos below.
 
-Demos are built upon the Reference Topology as a starting point and then layer specific 
+Demos are built upon the Reference Topology as a starting point and then layer specific
 device configuration on top.
 
 * **[Cldemo-config-routing](https://github.com/CumulusNetworks/cldemo-config-routing)** -- This Github repository contains the configuration files necessary for setting up Layer 3 routing on a CLOS topology using Cumulus Linux and Quagga.
@@ -62,29 +62,29 @@ device configuration on top.
 * **[Cldemo-dynamic-ansible-inventory](https://github.com/CumulusNetworks/cldemo-dynamic-ansible-inventory)** -- A demonstration of using Ansible with external data sources, specifically Redis or MySQL databases.
 * **[Cldemo-docker-macvlan](https://github.com/CumulusNetworks/cldemo-docker-macvlan)** -- A demonstration of advertising docker containers using the macvlan networking option.
 * **[NetQDemo-1.0](https://github.com/CumulusNetworks/netqdemo-1.0)** -- Demos using NetQ. **NOTE: The NetQ VM is available for Cumulus Customers**
-* **[cldemo-evpn-symmetric](https://github.com/CumulusNetworks/cldemo-evpn-symmetric)** -- Provides a setup to show a VXLAN Routing with EVPN environment using the symmetric IRB model. 
+* **[cldemo-evpn-symmetric](https://github.com/CumulusNetworks/cldemo-evpn-symmetric)** -- Provides a setup to show a VXLAN Routing with EVPN environment using the symmetric IRB model.
 
 
 ## Frequently Asked Questions
 
 ### What is CLDEMO-VAGRANT?
-CLDEMO-VAGRANT is the name of this repository which provides a consistent 
-physical topology of VMs which are cabled together in a configuration 
-we refer to as the [Reference Topology](#what-is-the-reference-topology). This topology provides a 
-consistent simulation topology upon which lots of different configurations 
-can be overlaid. The [individual demos](#available-demos) provide interface and routing protocol 
+CLDEMO-VAGRANT is the name of this repository which provides a consistent
+physical topology of VMs which are cabled together in a configuration
+we refer to as the [Reference Topology](#what-is-the-reference-topology). This topology provides a
+consistent simulation topology upon which lots of different configurations
+can be overlaid. The [individual demos](#available-demos) provide interface and routing protocol
 configurations which are applied to this simulation topology.
 
 ### What is the Reference Topology?
-The Cumulus Linux Demo Framework is built upon a [Vagrantfile](#what-is-a-vagrantfile) which builds 
-the Reference Topology. Using this topology, it is possible to demonstrate 
-any feature in Cumulus Linux. It may not be necessary to use all links or 
+The Cumulus Linux Demo Framework is built upon a [Vagrantfile](#what-is-a-vagrantfile) which builds
+the Reference Topology. Using this topology, it is possible to demonstrate
+any feature in Cumulus Linux. It may not be necessary to use all links or
 all devices but they're present if needed by a particular demo.
 
 This framework of demos is built on a two-tier spine-leaf [Clos network](https://en.wikipedia.org/wiki/Clos_network) with a
-dedicated out-of-band management network. The Reference Topology built in 
-this repository is used for all Cumulus Networks documentation, demos, 
-and course materials, so many demos will require you to build a topology 
+dedicated out-of-band management network. The Reference Topology built in
+this repository is used for all Cumulus Networks documentation, demos,
+and course materials, so many demos will require you to build a topology
 using the code available in this repository.
 
 ### What is Cumulus VX?
@@ -100,11 +100,11 @@ configurations, develop automation code, and simulate failure scenarios.
 Vagrant uses [Vagrantfiles](#what-is-a-vagrantfile) to represent the topology.
 
 ### What is a Vagrantfile?
-Vagrant topologies are described in a text file called a "Vagrantfile," 
+Vagrant topologies are described in a text file called a "Vagrantfile,"
 which is also the filename. A Vagrantfile is a Ruby program that
 tells Vagrant which devices to create and how to configure their networks.
 `vagrant up` will execute the Vagrantfile and create the reference topology
-using Virtualbox. 
+using Virtualbox.
 
 ### What is Libvirt/KVM?
 Libvirt/KVM is a high-performance hypervisor that is used on Linux systems **ONLY**.
@@ -118,9 +118,9 @@ Libvirt/KVM offers several notable advantages over Virtualbox:
 As a result this tends to be the most common hypervisor for larger simulations.
 
 ### Which Software Versions Should I Use?
-Software versions are always changing. At the time of this writing the following 
-versions are known to work well: 
-* Vagrant v1.9.5
+Software versions are always changing. At the time of this writing the following
+versions are known to work well:
+* Vagrant v2.0.2
 * Virtualbox v5.1.22
 * Libvirt v1.3.1
 
@@ -153,10 +153,10 @@ Out-of-Band Network check the [IPAM diagram](./documentation/ipam.md)
 
 ### Tips on Managing the VMs in the Topology
 The topology built using this Vagrantfile does not support `vagrant halt` or
-`vagrant resume` for in-band devices. To resume working with the demos at a later point in time, use 
+`vagrant resume` for in-band devices. To resume working with the demos at a later point in time, use
 the hypervisor's halt and resume functionality.
 
-In Virtualbox this can be done inside of the GUI by powering off (and later powering-on) the devices 
+In Virtualbox this can be done inside of the GUI by powering off (and later powering-on) the devices
 involved in the simulation or by running the following CLI commands:
 
     * VBoxManage controlvm leaf01 poweroff
@@ -180,15 +180,15 @@ When using the libvirt/kvm hypervisor the following commands can be used:
 
 ### Can I Preserve My Configuration
 In order to keep your configuration across Vagrant sessions, you should either save your configuration
-in a repository using an automation tool such as Ansible, Puppet, or Chef (preferred) or alternatively 
-copy the configuration files off of the VMs before running the "vagrant destroy" command to remove and 
+in a repository using an automation tool such as Ansible, Puppet, or Chef (preferred) or alternatively
+copy the configuration files off of the VMs before running the "vagrant destroy" command to remove and
 destroy the VMs involved in the simulation.
 
 One helpful command for saving configuration from Cumulus devices is:
 
     net show configuration files
 
-or 
+or
 
     net show configuration command
 
@@ -200,7 +200,7 @@ slightly from hypervisor to hypervisor.
 
 #### Virtualbox
 In the Vagrantfile built for Virtualbox there is a line which sets `simid= [some integer]` in order to
-create unique simulations a text editor can be used to modify the simid value to something unique which 
+create unique simulations a text editor can be used to modify the simid value to something unique which
 does not match other running simulations on the simulation node.
 
 #### Libvirt
@@ -220,8 +220,8 @@ from 8000-10000 --> 30000-32000.
 
 ### How Can I Customize the Topology?
 This Vagrant topology is built using [Topology Converter](https://github.com/cumulusnetworks/topology_converter).
-To create your own arbitrary topology, we recommend using Topology Converter. This will create a new 
-Vagrantfile which is specific to your environment.For more details on how to make customized 
+To create your own arbitrary topology, we recommend using Topology Converter. This will create a new
+Vagrantfile which is specific to your environment.For more details on how to make customized
 topologies, read Topology Converter's [documentation](https://github.com/CumulusNetworks/topology_converter/tree/master/documentation).
 
 #### **Advanced Users ONLY: ** Editing the existing topology
@@ -254,11 +254,11 @@ conflict with Virtualbox's ability to create 64-bit VMs.**
 
 ---
 
->©2017 Cumulus Networks. CUMULUS, the Cumulus Logo, CUMULUS NETWORKS, and the Rocket Turtle Logo 
-(the “Marks”) are trademarks and service marks of Cumulus Networks, Inc. in the U.S. and other 
-countries. You are not permitted to use the Marks without the prior written consent of Cumulus 
-Networks. The registered trademark Linux® is used pursuant to a sublicense from LMI, the exclusive 
-licensee of Linus Torvalds, owner of the mark on a world-wide basis. All other marks are used under 
+>©2017 Cumulus Networks. CUMULUS, the Cumulus Logo, CUMULUS NETWORKS, and the Rocket Turtle Logo
+(the “Marks”) are trademarks and service marks of Cumulus Networks, Inc. in the U.S. and other
+countries. You are not permitted to use the Marks without the prior written consent of Cumulus
+Networks. The registered trademark Linux® is used pursuant to a sublicense from LMI, the exclusive
+licensee of Linus Torvalds, owner of the mark on a world-wide basis. All other marks are used under
 fair use or license from their respective owners.
 
 For further details please see: [cumulusnetworks.com](http://www.cumulusnetworks.com)
