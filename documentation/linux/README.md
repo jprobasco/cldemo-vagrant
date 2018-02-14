@@ -23,7 +23,7 @@ This article is intended to show how to setup a simulation environment on a Linu
 ## Tools used
 
 - VirtualBox [-Version 5.1.22 Installer-](http://download.virtualbox.org/virtualbox/5.1.22/virtualbox-5.1_5.1.22-115126~Ubuntu~xenial_amd64.deb)  or [(Alternate version downloads)](https://www.virtualbox.org/wiki/Downloads)
-- Git
+- Git 
 - Vagrant [-Version 2.0.2 Installer-](https://releases.hashicorp.com/vagrant/2.0.2/vagrant_2.0.2_x86_64.deb) or [(Alternate version downloads)](https://releases.hashicorp.com/vagrant/)
 
 
@@ -67,7 +67,7 @@ Since this is the first time you bring up the VM the download may take a few min
 You should see that the 'oob-mgmt-server' VM is now in the 'running' state.
 
  7. Now let's bring up the oob-mgmt-switch with `vagrant up oob-mgmt-switch`
-
+ 
 This step is very similar to step 5 in that Vagrant detects that the Cumulus VX image is not installed locally so it fetches the VM and installs it.
 
  8. Finally once the oob-mgmt-switch has completed let's bring up some more nodes in the network: `vagrant up server01 leaf01 leaf02 spine01 spine02`
@@ -87,6 +87,6 @@ Now that we've deployed the VMs we can get to the actual networking fun.  For th
 ## Using Libvirt
 If you'd like to make use of the libvirt/kvm hypervisor that will also work.
 **Make sure to use the proper Vagrantfiles by running the following command**
-`cp ./Vagrantfile-kvm ./Vagrantfile`
+`cp ./Vagrantfile-kvm ./Vagrantfile` 
 Specific instructions for setting up your environment for simulation using the
 Libvirt/KVM hypervisor can be [found in this community article](https://getsatisfaction.cumulusnetworks.com/cumulus/topics/setting-up-an-ubuntu-16-04-server-for-simulation-with-libvirt-kvm).

@@ -62,15 +62,15 @@ VirtualBox should now be installed on the server and you can create/delete VMs o
 The git install includes the Git application but also installs a bash shell built on MINGW64 (Simiar to Cygwin) to provide Linux utilities on Windows.  It's a pretty great bash environment for Windows if you haven't used it before give it a try.  This guide however will concentrate on Windows deployments as such Powershell will be the primary method of interacting with Vagrant/Virtualbox.
 
  1. After downloading Git launch the installer.
-
+ 
 ![git_step1](./screenshots/git01.png?raw=true)
-
+ 
  2. Choose the install options in this guide we will enable large file support I also enable the associations for *.git and *.sh
-
+ 
 ![git_step2](./screenshots/git02.png?raw=true)
 
  3. Add Git to the windows PATH so that it's usable from both bash and Powershell.
-
+ 
 ![git_step3](./screenshots/git03.png?raw=true)
 
  4. Choose where to authenticate SSL certs when connecting to a Git repository.  If your company has an internal Stash, GitLab, or GitHub instance you might want to use your company's MS CA setup.  For this guide we are connected to public GitHub instances so the bundled certs and public authentication in OpenSSL work just fine.  If you're not sure choose the OpenSSL method, you can always change it later.
@@ -97,9 +97,9 @@ The git install includes the Git application but also installs a bash shell buil
 ### Installing Vagrant
 
 Vagrant is the final tool that will orchestrate all the VM creation and networking.  This install will require a reboot for both Server and Desktop versions of Windows.
+ 
 
-
- 1. Install Vagrant from the msi installer.
+ 1. Install Vagrant from the msi installer.  
 
 ![git_step1](./screenshots/vagrant01.png?raw=true)
 
@@ -152,10 +152,10 @@ Since this is the first time you bring up the VM the download may take a few min
 ![git_step6](./screenshots/ps06.png?raw=true)
 
  7a. Install the Cumulus Vx image with `vagrant box add CumulusCommunity/cumulus-vx --insecure --box-version=3.3.2 --provider virtualbox`
-
+ 
  7b. Now bring up the oob-mgmt-switch with `vagrant up oob-mgmt-switch`
 
-This step is very similar to step 5a in that Vagrant detects that the Cumulus VX image is not installed locally so it fetches the VM and installs it.
+This step is very similar to step 5a in that Vagrant detects that the Cumulus VX image is not installed locally so it fetches the VM and installs it. 
 
  8. Finally once the oob-mgmt-switch has completed let's bring up some more nodes in the network: `vagrant up server01 leaf01 leaf02 spine01 spine02`
 
@@ -177,7 +177,7 @@ Now that we've deployed the VMs we can get to the actual networking fun.  For th
 ![git_step2](./screenshots/vbox_gui02.png?raw=true)
 
  3. You'll be connected to the console and it will ask about mouse capture.  The release key sequence is right control.  You will then be dropped onto the console of the oob-mgmt-server
-
+  
 ![git_step3](./screenshots/vbox_gui03.png?raw=true)
 
  4. The default login for the oob-mgmt-server is username: cumulus password: CumulusLinux!
@@ -193,7 +193,7 @@ Now that we've deployed the VMs we can get to the actual networking fun.  For th
  1. Vagrant spins up each VM with a port forward for SSH for each VM you bring up.  To find the port number that has been created use `vagrant port oob-mgmt-server`
 
 ![git_step1](./screenshots/putty01.png?raw=true)
-
+ 
  2. Launch putty and connect to the oob-mgmt-server 127.0.0.1:2222
 
 ![git_step2](./screenshots/putty02.png?raw=true)
