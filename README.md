@@ -120,7 +120,7 @@ As a result this tends to be the most common hypervisor for larger simulations.
 ### Which Software Versions Should I Use?
 Software versions are always changing. At the time of this writing the following 
 versions are known to work well: 
-* Vagrant v1.9.5
+* Vagrant v2.0.2
 * Virtualbox v5.1.22
 * Libvirt v1.3.1
 

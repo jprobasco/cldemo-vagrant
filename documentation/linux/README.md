@@ -24,7 +24,7 @@ This article is intended to show how to setup a simulation environment on a Linu
 
 - VirtualBox [-Version 5.1.22 Installer-](http://download.virtualbox.org/virtualbox/5.1.22/virtualbox-5.1_5.1.22-115126~Ubuntu~xenial_amd64.deb)  or [(Alternate version downloads)](https://www.virtualbox.org/wiki/Downloads)
 - Git 
-- Vagrant [-Version 1.9.5 Installer-](https://releases.hashicorp.com/vagrant/1.9.5/vagrant_1.9.5_x86_64.deb) or [(Alternate version downloads)](https://releases.hashicorp.com/vagrant/)
+- Vagrant [-Version 2.0.2 Installer-](https://releases.hashicorp.com/vagrant/2.0.2/vagrant_2.0.2_x86_64.deb) or [(Alternate version downloads)](https://releases.hashicorp.com/vagrant/)
 
 
 ## Install the tools
@@ -40,8 +40,8 @@ sudo dpkg -i ./virtualbox_5.1.22.deb
 ### Installing Vagrant
 
 ```
-wget -O vagrant_1.9.5.deb https://releases.hashicorp.com/vagrant/1.9.5/vagrant_1.9.5_x86_64.deb
-sudo dpkg -i ./vagrant_1.9.5.deb
+wget -O vagrant_2.0.2.deb https://releases.hashicorp.com/vagrant/2.0.2/vagrant_2.0.2_x86_64.deb
+sudo dpkg -i ./vagrant_2.0.2.deb
 ```
 
 ### Installing Git

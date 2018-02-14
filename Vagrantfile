@@ -5,13 +5,13 @@
 #    built with the following args: ./topology_converter.py ./topology.dot
 #
 #    NOTE: in order to use this Vagrantfile you will need:
-#       -Vagrant(v1.8.6+) installed: http://www.vagrantup.com/downloads
+#       -Vagrant(v2.0.2+) installed: http://www.vagrantup.com/downloads
 #       -the "helper_scripts" directory that comes packaged with topology-converter.py
 #       -Virtualbox installed: https://www.virtualbox.org/wiki/Downloads
 
 
 
-Vagrant.require_version ">= 1.8.6"
+Vagrant.require_version ">= 2.0.2"
 
 $script = <<-SCRIPT
 if grep -q -i 'cumulus' /etc/lsb-release &> /dev/null; then
