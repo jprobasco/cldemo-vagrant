@@ -61,7 +61,7 @@ brew cask install virtualbox
 ### Installing VirtualBox extension pack
 
 ```
-brew cask install virtualbox-expension-pack
+brew cask install virtualbox-extension-pack
 ```
 
 ### Installing Vagrant
