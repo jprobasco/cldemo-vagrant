@@ -1,64 +1,75 @@
-# Created by Topology-Converter v4.6.4
-#    Template Revision: v4.6.4
+# Created by Topology-Converter v4.6.8
+#    Template Revision: v4.6.8
 #    https://github.com/cumulusnetworks/topology_converter
 #    using topology data from: ./topology.dot
 #    built with the following args: ./topology_converter.py ./topology.dot
 #
 #    NOTE: in order to use this Vagrantfile you will need:
-#       -Vagrant(v1.8.6+) installed: http://www.vagrantup.com/downloads
+#       -Vagrant(v2.0.2+) installed: http://www.vagrantup.com/downloads
 #       -the "helper_scripts" directory that comes packaged with topology-converter.py
 #       -Virtualbox installed: https://www.virtualbox.org/wiki/Downloads
 
 
 
+Vagrant.require_version ">= 2.0.2"
+
+# Fix for Older versions of Vagrant to Grab Images from the Correct Location
+unless Vagrant::DEFAULT_SERVER_URL.frozen?
+  Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
+end
 
 $script = <<-SCRIPT
 if grep -q -i 'cumulus' /etc/lsb-release &> /dev/null; then
     echo "### RUNNING CUMULUS EXTRA CONFIG ###"
     source /etc/lsb-release
-    if [[ $DISTRIB_RELEASE =~ ^2.* ]]; then
-        echo "  INFO: Detected a 2.5.x Based Release"
+    if [ -z /etc/app-release ]; then
+        echo "  INFO: Detected NetQ TS Server"
+        source /etc/app-release
+        echo "  INFO: Running NetQ TS Appliance Version $APPLIANCE_VERSION"
+    else
+        if [[ $DISTRIB_RELEASE =~ ^2.* ]]; then
+            echo "  INFO: Detected a 2.5.x Based Release"
 
-        echo "  adding fake cl-acltool..."
-        echo -e "#!/bin/bash\nexit 0" > /usr/bin/cl-acltool
-        chmod 755 /usr/bin/cl-acltool
+            echo "  adding fake cl-acltool..."
+            echo -e "#!/bin/bash\nexit 0" > /usr/bin/cl-acltool
+            chmod 755 /usr/bin/cl-acltool
 
-        echo "  adding fake cl-license..."
-        echo -e "#!/bin/bash\nexit 0" > /usr/bin/cl-license
-        chmod 755 /usr/bin/cl-license
+            echo "  adding fake cl-license..."
+            echo -e "#!/bin/bash\nexit 0" > /usr/bin/cl-license
+            chmod 755 /usr/bin/cl-license
 
-        echo "  Disabling default remap on Cumulus VX..."
-        mv -v /etc/init.d/rename_eth_swp /etc/init.d/rename_eth_swp.backup
+            echo "  Disabling default remap on Cumulus VX..."
+            mv -v /etc/init.d/rename_eth_swp /etc/init.d/rename_eth_swp.backup
 
-        echo "### Rebooting to Apply Remap..."
+            echo "### Rebooting to Apply Remap..."
 
-    elif [[ $DISTRIB_RELEASE =~ ^3.* ]]; then
-        echo "  INFO: Detected a 3.x Based Release"
-        echo "### Disabling default remap on Cumulus VX..."
-        mv -v /etc/hw_init.d/S10rename_eth_swp.sh /etc/S10rename_eth_swp.sh.backup &> /dev/null
-        echo "### Disabling ZTP service..."
-        systemctl stop ztp.service
-        ztp -d 2>&1
-        echo "### Resetting ZTP to work next boot..."
-        ztp -R 2>&1
-        echo "  INFO: Detected Cumulus Linux v$DISTRIB_RELEASE Release"
-        if [[ $DISTRIB_RELEASE =~ ^3.[1-9].* ]]; then
-            echo "### Fixing ONIE DHCP to avoid Vagrant Interface ###"
-            echo "     Note: Installing from ONIE will undo these changes." 
-            mkdir /tmp/foo
-            mount LABEL=ONIE-BOOT /tmp/foo
-            sed -i 's/eth0/eth1/g' /tmp/foo/grub/grub.cfg
-            sed -i 's/eth0/eth1/g' /tmp/foo/onie/grub/grub-extra.cfg
-            umount /tmp/foo
-        fi
-        if [[ $DISTRIB_RELEASE =~ ^3.[2-9].* ]]; then
-            if [[ $(grep "vagrant" /etc/netd.conf | wc -l ) == 0 ]]; then
-                echo "### Giving Vagrant User Ability to Run NCLU Commands ###"
-                sed -i 's/users_with_edit = root, cumulus/users_with_edit = root, cumulus, vagrant/g' /etc/netd.conf
-                sed -i 's/users_with_show = root, cumulus/users_with_show = root, cumulus, vagrant/g' /etc/netd.conf
+        elif [[ $DISTRIB_RELEASE =~ ^3.* ]]; then
+            echo "  INFO: Detected a 3.x Based Release"
+            echo "### Disabling default remap on Cumulus VX..."
+            mv -v /etc/hw_init.d/S10rename_eth_swp.sh /etc/S10rename_eth_swp.sh.backup &> /dev/null
+            echo "### Disabling ZTP service..."
+            systemctl stop ztp.service
+            ztp -d 2>&1
+            echo "### Resetting ZTP to work next boot..."
+            ztp -R 2>&1
+            echo "  INFO: Detected Cumulus Linux v$DISTRIB_RELEASE Release"
+            if [[ $DISTRIB_RELEASE =~ ^3.[1-9].* ]]; then
+                echo "### Fixing ONIE DHCP to avoid Vagrant Interface ###"
+                echo "     Note: Installing from ONIE will undo these changes." 
+                mkdir /tmp/foo
+                mount LABEL=ONIE-BOOT /tmp/foo
+                sed -i 's/eth0/eth1/g' /tmp/foo/grub/grub.cfg
+                sed -i 's/eth0/eth1/g' /tmp/foo/onie/grub/grub-extra.cfg
+                umount /tmp/foo
+            fi
+            if [[ $DISTRIB_RELEASE =~ ^3.[2-9].* ]]; then
+                if [[ $(grep "vagrant" /etc/netd.conf | wc -l ) == 0 ]]; then
+                    echo "### Giving Vagrant User Ability to Run NCLU Commands ###"
+                    sed -i 's/users_with_edit = root, cumulus/users_with_edit = root, cumulus, vagrant/g' /etc/netd.conf
+                    sed -i 's/users_with_show = root, cumulus/users_with_show = root, cumulus, vagrant/g' /etc/netd.conf
+                fi
             fi
         fi
-
     fi
 fi
 echo "### DONE ###"
@@ -68,7 +79,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  simid = 1505240534
+  simid = 1523549135
 
   config.vm.provider "virtualbox" do |v|
     v.gui=false
@@ -80,7 +91,9 @@ Vagrant.configure("2") do |config|
 
   ##### DEFINE VM for oob-mgmt-server #####
   config.vm.define "oob-mgmt-server" do |device|
+    
     device.vm.hostname = "oob-mgmt-server" 
+    
     device.vm.box = "CumulusCommunity/vx_oob_server"
     device.vm.box_version = "1.0.3"
     device.vm.provider "virtualbox" do |v|
@@ -140,7 +153,9 @@ end
 
   ##### DEFINE VM for oob-mgmt-switch #####
   config.vm.define "oob-mgmt-switch" do |device|
+    
     device.vm.hostname = "oob-mgmt-switch" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
@@ -312,7 +327,9 @@ end
 
   ##### DEFINE VM for exit02 #####
   config.vm.define "exit02" do |device|
+    
     device.vm.hostname = "exit02" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
@@ -452,7 +469,9 @@ end
 
   ##### DEFINE VM for exit01 #####
   config.vm.define "exit01" do |device|
+    
     device.vm.hostname = "exit01" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
@@ -592,7 +611,9 @@ end
 
   ##### DEFINE VM for spine02 #####
   config.vm.define "spine02" do |device|
+    
     device.vm.hostname = "spine02" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
@@ -716,7 +737,9 @@ end
 
   ##### DEFINE VM for spine01 #####
   config.vm.define "spine01" do |device|
+    
     device.vm.hostname = "spine01" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
@@ -840,7 +863,9 @@ end
 
   ##### DEFINE VM for leaf04 #####
   config.vm.define "leaf04" do |device|
+    
     device.vm.hostname = "leaf04" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
@@ -980,7 +1005,9 @@ end
 
   ##### DEFINE VM for leaf02 #####
   config.vm.define "leaf02" do |device|
+    
     device.vm.hostname = "leaf02" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
@@ -1120,7 +1147,9 @@ end
 
   ##### DEFINE VM for leaf03 #####
   config.vm.define "leaf03" do |device|
+    
     device.vm.hostname = "leaf03" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
@@ -1260,7 +1289,9 @@ end
 
   ##### DEFINE VM for leaf01 #####
   config.vm.define "leaf01" do |device|
+    
     device.vm.hostname = "leaf01" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
@@ -1400,7 +1431,9 @@ end
 
   ##### DEFINE VM for edge01 #####
   config.vm.define "edge01" do |device|
+    
     device.vm.hostname = "edge01" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_edge01"
@@ -1478,7 +1511,9 @@ end
 
   ##### DEFINE VM for server01 #####
   config.vm.define "server01" do |device|
+    
     device.vm.hostname = "server01" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_server01"
@@ -1556,7 +1591,9 @@ end
 
   ##### DEFINE VM for server03 #####
   config.vm.define "server03" do |device|
+    
     device.vm.hostname = "server03" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_server03"
@@ -1634,7 +1671,9 @@ end
 
   ##### DEFINE VM for server02 #####
   config.vm.define "server02" do |device|
+    
     device.vm.hostname = "server02" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_server02"
@@ -1712,7 +1751,9 @@ end
 
   ##### DEFINE VM for server04 #####
   config.vm.define "server04" do |device|
+    
     device.vm.hostname = "server04" 
+    
     device.vm.box = "yk0/ubuntu-xenial"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_server04"
@@ -1790,7 +1831,9 @@ end
 
   ##### DEFINE VM for internet #####
   config.vm.define "internet" do |device|
+    
     device.vm.hostname = "internet" 
+    
     device.vm.box = "CumulusCommunity/cumulus-vx"
     device.vm.box_version = "3.4.0"
     device.vm.provider "virtualbox" do |v|
