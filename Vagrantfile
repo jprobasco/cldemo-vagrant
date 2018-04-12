@@ -1,5 +1,5 @@
-# Created by Topology-Converter v4.6.6
-#    Template Revision: v4.6.5
+# Created by Topology-Converter v4.6.8
+#    Template Revision: v4.6.8
 #    https://github.com/cumulusnetworks/topology_converter
 #    using topology data from: ./topology.dot
 #    built with the following args: ./topology_converter.py ./topology.dot
@@ -12,6 +12,11 @@
 
 
 Vagrant.require_version ">= 2.0.2"
+
+# Fix for Older versions of Vagrant to Grab Images from the Correct Location
+unless Vagrant::DEFAULT_SERVER_URL.frozen?
+  Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
+end
 
 $script = <<-SCRIPT
 if grep -q -i 'cumulus' /etc/lsb-release &> /dev/null; then
@@ -74,7 +79,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  simid = 1516247777
+  simid = 1522853971
 
   config.vm.provider "virtualbox" do |v|
     v.gui=false
@@ -152,7 +157,7 @@ end
     device.vm.hostname = "oob-mgmt-switch" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_oob-mgmt-switch"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -326,7 +331,7 @@ end
     device.vm.hostname = "exit02" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_exit02"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -468,7 +473,7 @@ end
     device.vm.hostname = "exit01" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_exit01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -610,7 +615,7 @@ end
     device.vm.hostname = "spine02" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_spine02"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -736,7 +741,7 @@ end
     device.vm.hostname = "spine01" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_spine01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -862,7 +867,7 @@ end
     device.vm.hostname = "leaf04" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf04"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -1004,7 +1009,7 @@ end
     device.vm.hostname = "leaf02" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf02"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -1146,7 +1151,7 @@ end
     device.vm.hostname = "leaf03" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf03"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -1288,7 +1293,7 @@ end
     device.vm.hostname = "leaf01" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_leaf01"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
@@ -1830,7 +1835,7 @@ end
     device.vm.hostname = "internet" 
     
     device.vm.box = "CumulusCommunity/cumulus-vx"
-    device.vm.box_version = "3.5.1"
+    device.vm.box_version = "3.5.3"
     device.vm.provider "virtualbox" do |v|
       v.name = "#{simid}_internet"
       v.customize ["modifyvm", :id, '--audiocontroller', 'AC97', '--audio', 'Null']
