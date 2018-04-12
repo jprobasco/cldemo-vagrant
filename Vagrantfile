@@ -1,64 +1,75 @@
-# Created by Topology-Converter v4.6.5
-#    Template Revision: v4.6.5
+# Created by Topology-Converter v4.6.8
+#    Template Revision: v4.6.8
 #    https://github.com/cumulusnetworks/topology_converter
 #    using topology data from: ./topology.dot
 #    built with the following args: ./topology_converter.py ./topology.dot
 #
 #    NOTE: in order to use this Vagrantfile you will need:
-#       -Vagrant(v1.8.6+) installed: http://www.vagrantup.com/downloads
+#       -Vagrant(v2.0.2+) installed: http://www.vagrantup.com/downloads
 #       -the "helper_scripts" directory that comes packaged with topology-converter.py
 #       -Virtualbox installed: https://www.virtualbox.org/wiki/Downloads
 
 
 
+Vagrant.require_version ">= 2.0.2"
+
+# Fix for Older versions of Vagrant to Grab Images from the Correct Location
+unless Vagrant::DEFAULT_SERVER_URL.frozen?
+  Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
+end
 
 $script = <<-SCRIPT
 if grep -q -i 'cumulus' /etc/lsb-release &> /dev/null; then
     echo "### RUNNING CUMULUS EXTRA CONFIG ###"
     source /etc/lsb-release
-    if [[ $DISTRIB_RELEASE =~ ^2.* ]]; then
-        echo "  INFO: Detected a 2.5.x Based Release"
+    if [ -z /etc/app-release ]; then
+        echo "  INFO: Detected NetQ TS Server"
+        source /etc/app-release
+        echo "  INFO: Running NetQ TS Appliance Version $APPLIANCE_VERSION"
+    else
+        if [[ $DISTRIB_RELEASE =~ ^2.* ]]; then
+            echo "  INFO: Detected a 2.5.x Based Release"
 
-        echo "  adding fake cl-acltool..."
-        echo -e "#!/bin/bash\nexit 0" > /usr/bin/cl-acltool
-        chmod 755 /usr/bin/cl-acltool
+            echo "  adding fake cl-acltool..."
+            echo -e "#!/bin/bash\nexit 0" > /usr/bin/cl-acltool
+            chmod 755 /usr/bin/cl-acltool
 
-        echo "  adding fake cl-license..."
-        echo -e "#!/bin/bash\nexit 0" > /usr/bin/cl-license
-        chmod 755 /usr/bin/cl-license
+            echo "  adding fake cl-license..."
+            echo -e "#!/bin/bash\nexit 0" > /usr/bin/cl-license
+            chmod 755 /usr/bin/cl-license
 
-        echo "  Disabling default remap on Cumulus VX..."
-        mv -v /etc/init.d/rename_eth_swp /etc/init.d/rename_eth_swp.backup
+            echo "  Disabling default remap on Cumulus VX..."
+            mv -v /etc/init.d/rename_eth_swp /etc/init.d/rename_eth_swp.backup
 
-        echo "### Rebooting to Apply Remap..."
+            echo "### Rebooting to Apply Remap..."
 
-    elif [[ $DISTRIB_RELEASE =~ ^3.* ]]; then
-        echo "  INFO: Detected a 3.x Based Release"
-        echo "### Disabling default remap on Cumulus VX..."
-        mv -v /etc/hw_init.d/S10rename_eth_swp.sh /etc/S10rename_eth_swp.sh.backup &> /dev/null
-        echo "### Disabling ZTP service..."
-        systemctl stop ztp.service
-        ztp -d 2>&1
-        echo "### Resetting ZTP to work next boot..."
-        ztp -R 2>&1
-        echo "  INFO: Detected Cumulus Linux v$DISTRIB_RELEASE Release"
-        if [[ $DISTRIB_RELEASE =~ ^3.[1-9].* ]]; then
-            echo "### Fixing ONIE DHCP to avoid Vagrant Interface ###"
-            echo "     Note: Installing from ONIE will undo these changes." 
-            mkdir /tmp/foo
-            mount LABEL=ONIE-BOOT /tmp/foo
-            sed -i 's/eth0/eth1/g' /tmp/foo/grub/grub.cfg
-            sed -i 's/eth0/eth1/g' /tmp/foo/onie/grub/grub-extra.cfg
-            umount /tmp/foo
-        fi
-        if [[ $DISTRIB_RELEASE =~ ^3.[2-9].* ]]; then
-            if [[ $(grep "vagrant" /etc/netd.conf | wc -l ) == 0 ]]; then
-                echo "### Giving Vagrant User Ability to Run NCLU Commands ###"
-                sed -i 's/users_with_edit = root, cumulus/users_with_edit = root, cumulus, vagrant/g' /etc/netd.conf
-                sed -i 's/users_with_show = root, cumulus/users_with_show = root, cumulus, vagrant/g' /etc/netd.conf
+        elif [[ $DISTRIB_RELEASE =~ ^3.* ]]; then
+            echo "  INFO: Detected a 3.x Based Release"
+            echo "### Disabling default remap on Cumulus VX..."
+            mv -v /etc/hw_init.d/S10rename_eth_swp.sh /etc/S10rename_eth_swp.sh.backup &> /dev/null
+            echo "### Disabling ZTP service..."
+            systemctl stop ztp.service
+            ztp -d 2>&1
+            echo "### Resetting ZTP to work next boot..."
+            ztp -R 2>&1
+            echo "  INFO: Detected Cumulus Linux v$DISTRIB_RELEASE Release"
+            if [[ $DISTRIB_RELEASE =~ ^3.[1-9].* ]]; then
+                echo "### Fixing ONIE DHCP to avoid Vagrant Interface ###"
+                echo "     Note: Installing from ONIE will undo these changes." 
+                mkdir /tmp/foo
+                mount LABEL=ONIE-BOOT /tmp/foo
+                sed -i 's/eth0/eth1/g' /tmp/foo/grub/grub.cfg
+                sed -i 's/eth0/eth1/g' /tmp/foo/onie/grub/grub-extra.cfg
+                umount /tmp/foo
+            fi
+            if [[ $DISTRIB_RELEASE =~ ^3.[2-9].* ]]; then
+                if [[ $(grep "vagrant" /etc/netd.conf | wc -l ) == 0 ]]; then
+                    echo "### Giving Vagrant User Ability to Run NCLU Commands ###"
+                    sed -i 's/users_with_edit = root, cumulus/users_with_edit = root, cumulus, vagrant/g' /etc/netd.conf
+                    sed -i 's/users_with_show = root, cumulus/users_with_show = root, cumulus, vagrant/g' /etc/netd.conf
+                fi
             fi
         fi
-
     fi
 fi
 echo "### DONE ###"
@@ -68,7 +79,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  simid = 1510167303
+  simid = 1523549139
 
   config.vm.provider "virtualbox" do |v|
     v.gui=false
