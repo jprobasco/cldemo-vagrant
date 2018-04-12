@@ -1,5 +1,5 @@
-# Created by Topology-Converter v4.6.6
-#    Template Revision: v4.6.5
+# Created by Topology-Converter v4.6.8
+#    Template Revision: v4.6.8
 #    https://github.com/cumulusnetworks/topology_converter
 #    using topology data from: ./topology.dot
 #    built with the following args: ./topology_converter.py ./topology.dot
@@ -12,6 +12,11 @@
 
 
 Vagrant.require_version ">= 2.0.2"
+
+# Fix for Older versions of Vagrant to Grab Images from the Correct Location
+unless Vagrant::DEFAULT_SERVER_URL.frozen?
+  Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
+end
 
 $script = <<-SCRIPT
 if grep -q -i 'cumulus' /etc/lsb-release &> /dev/null; then
@@ -74,7 +79,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  simid = 1517848981
+  simid = 1523549143
 
   config.vm.provider "virtualbox" do |v|
     v.gui=false
