@@ -19,6 +19,7 @@ IP Address Schema for Cumulus Networks Demos
 | server04 | 10.0.0.34/32   |  192.168.0.34  |  65034 |
 | edge01 | 10.0.0.51/32   |  192.168.0.51  | 65051 |
 | oob-mgmt-switch | UNASSIGNED   |  192.168.0.1 (bridge)  | UNASSIGNED |
+| oob-mgmt-server | UNASSIGNED   |  192.168.0.254 (eth1)  | UNASSIGNED |
 | internet | 10.0.0.253/32 | 192.168.1.253 | 65253 |
 
 MAC Address Management
