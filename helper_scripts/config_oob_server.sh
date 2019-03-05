@@ -256,6 +256,9 @@ cp /home/cumulus/.ssh/id_rsa.pub /var/www/html/authorized_keys
 chmod 700 -R /home/cumulus/.ssh
 chown cumulus:cumulus -R /home/cumulus/.ssh
 
+echo " ### Pushing Fake License ###"
+echo "this is a fake license" > /var/www/html/license.lic
+chmod 777 /var/www/html/license.lic
 
 echo " ### Pushing ZTP Script ###"
 cat << EOT > /var/www/html/ztp_oob.sh
