@@ -89,4 +89,4 @@ If you'd like to make use of the libvirt/kvm hypervisor that will also work.
 **Make sure to use the proper Vagrantfiles by running the following command**
 `cp ./Vagrantfile-kvm ./Vagrantfile` 
 Specific instructions for setting up your environment for simulation using the
-Libvirt/KVM hypervisor can be [found in this community article](https://getsatisfaction.cumulusnetworks.com/cumulus/topics/setting-up-an-ubuntu-16-04-server-for-simulation-with-libvirt-kvm).
+Libvirt/KVM hypervisor can be [found in the CumulusVx documentation](https://docs.cumulusnetworks.com/display/VX/Vagrant+and+Libvirt+with+KVM+or+QEMU).
